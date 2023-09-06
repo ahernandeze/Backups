@@ -1,15 +1,22 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from OpenSSL import SSL
+import ssl
+
+ 
 
 # Configuración del correo electrónico
-correo = 'tu_correo@tu_dominio.com'
-contraseña = 'tu_contraseña'
-destinatario = 'destinatario@dominio.com'
+correo = 'soc@verneit.com'
+contraseña = '5b0RzI2KytXu6Sv3gF9lZ8'
+destinatario = 'soc@verneit.com'
+
+ 
 
 # Configuración del certificado
-certificado = '/ruta/al/certificado.cert'
+certificado = '/usr/local/share/ca-certificates/ff94daba9d7cca4225c1502c03f2a11b.pfx'
+contraseña_certificado = 'PNq.p_w7U9JT)C)S1F'
+
+ 
 
 def enviar_correo(cambios):
     msg = MIMEMultipart()
@@ -19,19 +26,15 @@ def enviar_correo(cambios):
     message = 'Se han detectado los siguientes cambios en el directorio en las últimas 24 horas:\n\n' + '\n'.join(cambios)
     msg.attach(MIMEText(message))
 
-    contexto_ssl = SSL.Context(SSL.SSLv23_METHOD)
-    contexto_ssl.use_certificate_file(certificado)
+ 
+
+    contexto_ssl = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    contexto_ssl.load_cert_chain(certfile=certificado, password=contraseña_certificado)
+
+ 
 
     mailServer = smtplib.SMTP('smtp.office365.com', 587)
     mailServer.starttls(context=contexto_ssl)
     mailServer.login(correo, contraseña)
     mailServer.sendmail(correo, destinatario, msg.as_string())
     mailServer.close()
-
-
-
-
-PNq.p_w7U9JT)C)S1F
-
-
-5b0RzI2KytXu6Sv3gF9lZ8
