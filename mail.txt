@@ -27,3 +27,8 @@ def enviar_correo(cambios):
     mailServer.login(correo, contraseña)
     mailServer.sendmail(correo, destinatario, msg.as_string())
     mailServer.close()
+
+
+
+
+PNq.p_w7U9JT)C)S1F
