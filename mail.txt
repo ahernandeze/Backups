@@ -6,8 +6,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Configuración del correo electrónico
-correo = 'soc@verneit.com'
-contraseña = '5b0RzI2KytXu6Sv3gF9lZ8'
+correo = 'vernebackups@gmail.com'
+contraseña = '5YPsqLcD6KcjYfgNcdiaBuk1n'
 destinatario = 'soc@verneit.com'
 
 # Configuración del directorio a monitorear
@@ -21,7 +21,7 @@ def enviar_correo(cambios):
     message = 'Se han detectado los siguientes cambios en el directorio en las últimas 24 horas:\n\n' + '\n'.join(cambios)
     msg.attach(MIMEText(message))
 
-    mailServer = smtplib.SMTP('smtp.office365.com', 587)
+    mailServer = smtplib.SMTP('smtp.gmail.com', 587)
     mailServer.starttls()
     mailServer.login(correo, contraseña)
     mailServer.sendmail(correo, destinatario, msg.as_string())
